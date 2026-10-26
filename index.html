@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FleetGuard Compliance Hub | Next-Gen Fleet Operations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0b0f19;
+            --bg-card: #111827;
+            --bg-card-hover: #1f2937;
+            --border-color: #374151;
+            --accent-blue: #3b82f6;
+            --accent-blue-hover: #2563eb;
+            --accent-green: #10b981;
+            --accent-yellow: #f59e0b;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header / Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 5%;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            background: var(--accent-blue);
+            color: white;
+            font-weight: 700;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 1.1rem;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.25rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-blue-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 5rem 5% 3rem 5%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-blue);
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ffffff, #9ca3af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1.25rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+        }
+
+        /* Interactive App Preview / Simulator Section */
+        .simulator-section {
+            max-width: 1000px;
+            margin: 0 auto 5rem auto;
+            padding: 0 5%;
+        }
+
+        .simulator-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .simulator-header {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+
+        .simulator-title {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .simulator-body {
+            padding: 2rem;
+        }
+
+        .sim-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            padding: 1.25rem;
+            border-radius: 8px;
+        }
+
+        .metric-card h4 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-card .value {
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+
+        /* Interactive Toggle Scope Area */
+        .scope-section {
+            max-width: 1000px;
+            margin: 0 auto 6rem auto;
+            padding: 0 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tab-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+
+        .tab-content {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tab-content.active {
+            display: grid;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-blue);
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-area">
+            <div class="logo-icon">FG</div>
+            <div class="logo-text">FleetGuard</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#simulator">Live Demo</a></li>
+            <li><a href="#scope">MVP vs Roadmap</a></li>
+            <li><a href="https://trucking-compliance-hub-sdsb-fya6qbfzj.vercel.app/" target="_blank">Launch App ↗</a></li>
+        </ul>
+        <a href="https://trucking-compliance-hub-sdsb-fya6qbfzj.vercel.app/" target="_blank" class="btn-primary">Open Dashboard</a>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="badge">
+            <span>⚡ Phase 2 Feature Expansion Active</span>
+        </div>
+        <h1>Complete Fleet Compliance, Simplified.</h1>
+        <p>Built for rigorous Hours-of-Service tracking, automated audit logs, and effortless commercial driver license management.</p>
+        <div class="hero-cta">
+            <a href="https://trucking-compliance-hub-sdsb-fya6qbfzj.vercel.app/" target="_blank" class="btn-primary">View Live Platform</a>
+            <a href="#scope" class="btn-secondary">Explore Roadmap Scope</a>
+        </div>
+    </section>
+
+    <!-- Interactive Simulator Widget -->
+    <section class="simulator-section" id="simulator">
+        <div class="simulator-card">
+            <div class="simulator-header">
+                <div class="window-dots">
+                    <div class="dot dot-red"></div>
+                    <div class="dot dot-yellow"></div>
+                    <div class="dot dot-green"></div>
+                </div>
+                <div class="simulator-title">Live Fleet Diagnostic Sandbox (Vanilla JS Engine)</div>
+                <div style="font-size: 0.75rem; color: var(--accent-green);">● Live API Sync</div>
+            </div>
+            <div class="simulator-body">
+                <div class="sim-grid">
+                    <div class="metric-card">
+                        <h4>Total Monitored Drivers</h4>
+                        <div class="value" id="driverCount">2</div>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Active HOS Records</h4>
+                        <div class="value" style="color: var(--accent-green);" id="activeCount">2</div>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Expiring Licenses (&lt;30d)</h4>
+                        <div class="value" style="color: var(--accent-yellow);" id="expiryCount">1</div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button class="btn-primary" onclick="simulateDataRefresh()">🔄 Simulate Real-Time Telematics Sync</button>
+                    <p id="syncStatus" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem;"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Scope Section -->
+    <section class="scope-section" id="scope">
+        <h2 class="section-title">Project Scope & Feature Matrix</h2>
+        <p class="section-subtitle">Reviewing completed MVP milestones alongside incoming advanced additions.</p>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(event, 'mvpTab')">Included in MVP (Completed)</button>
+            <button class="tab-btn" onclick="switchTab(event, 'roadmapTab')">Expanded Post-MVP (In Progress)</button>
+        </div>
+
+        <!-- MVP Tab Content -->
+        <div id="mvpTab" class="tab-content active">
+            <div class="feature-card">
+                <h3>📊 Dashboard Summary & Alerts</h3>
+                <p>Real-time calculation metrics displaying total active drivers, compliance states, and urgency flags.</p>
+            </div>
+            <div class="feature-card">
+                <h3>👤 Driver Directory & CRUD</h3>
+                <p>Comprehensive profile management supporting add, view, edit, and state tracking for CDLs.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔍 Search & Filter Engine</h3>
+                <p>Instant client-side querying across driver names, license numbers, and active compliance filters.</p>
+            </div>
+            <div class="feature-card">
+                <h3>⏱️ HOS Audit Log Records</h3>
+                <p>Detailed duty status timeline logs structured for DOT officer inspection reviews.</p>
+            </div>
+        </div>
+
+        <!-- Roadmap Tab Content -->
+        <div id="roadmapTab" class="tab-content">
+            <div class="feature-card">
+                <h3>🚛 Dispatch & Routing Module</h3>
+                <p>Assign loads, track route progress in real-time, and link delivery updates directly to active drivers.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📑 Automated Filing Simulator</h3>
+                <p>One-click audit packet compilation designed to simulate FMCSA/DOT transmission workflows.</p>
+            </div>
+            <div class="feature-card">
+                <h3>💳 Basic Billing & Payroll Tracking</h3>
+                <p>Calculate driver load payouts, track fuel stop expenses, and generate summary invoices.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔌 Telematics Hardware Webhooks</h3>
+                <p>Standardized API mock endpoints to simulate data ingestion from OBD-II diagnostic ports.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 FleetGuard Compliance Hub. Built for robust performance using HTML, CSS, and Vanilla JavaScript.</p>
+    </footer>
+
+    <!-- Script to handle interactive tabs and live telemetry simulation -->
+    <script>
+        function switchTab(evt, tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+        function simulateDataRefresh() {
+            const statusEl = document.getElementById('syncStatus');
+            const driverEl = document.getElementById('driverCount');
+            const activeEl = document.getElementById('activeCount');
+            
+            statusEl.style.color = '#3b82f6';
+            statusEl.textContent = 'Connecting to Express API endpoint...';
+
+            setTimeout(() => {
+                driverEl.textContent = '3';
+                activeEl.textContent = '3';
+                statusEl.style.color = '#10b981';
+                statusEl.textContent = 'Successfully synchronized! 1 new driver record ingested from API.';
+            }, 800);
+        }
+    </script>
+</body>
+</html>
